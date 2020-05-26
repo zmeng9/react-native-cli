@@ -136,7 +136,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       ]}
       data={numColumns > 1 ? listData.slice() : listData}
       scrollIndicatorInsets={{ right: 1 }}
-      keyboardDismissMode='interactive'
+      keyboardDismissMode='on-drag'
       alwaysBounceVertical={isLoading || alwaysBounceVertical}
       ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
       ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}

@@ -59,6 +59,7 @@ export const Btn: React.SFC<IBtnProps> = observer(({
 
 const styles = StyleSheet.create({
   large: {
+    height: 40,
     alignSelf: `center`,
     marginVertical: 10,
     borderRadius: 12,
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   small: {
+    height: 35,
     alignSelf: `center`,
     margin: 5,
     borderRadius: 15,

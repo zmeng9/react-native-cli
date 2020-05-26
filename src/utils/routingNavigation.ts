@@ -26,10 +26,6 @@ export const goBack = () => {
   navigation.goBack()
 }
 
-export const goToPlaza = () => {
-  navigation.navigate(`Plaza`)
-}
-
 export const goToSearch = () => {
   navigation.navigate(`Search`)
 }

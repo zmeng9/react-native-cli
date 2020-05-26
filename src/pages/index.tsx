@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { CardStyleInterpolators } from '@react-navigation/stack'
 import { useTheme } from '../hooks'
 import { HomeTab as Home } from './home'
 import { Search } from './search'
@@ -17,6 +18,7 @@ const StackNavigator: React.SFC = () => {
       headerMode='none'
       screenOptions={{
         cardStyle: { backgroundColor },
+        cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
       }}
     >
       <Stack.Screen

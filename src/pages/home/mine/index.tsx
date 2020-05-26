@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { CardStyleInterpolators } from '@react-navigation/stack'
 import { Icon } from '@/components'
 import { useTheme } from '@/hooks'
 import { goToSetting } from '@/utils'
@@ -28,6 +29,7 @@ export const MineStackNavigator: React.SFC = () => {
         cardStyle: {
           backgroundColor,
         },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen

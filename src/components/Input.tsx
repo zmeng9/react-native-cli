@@ -76,12 +76,14 @@ const styles = StyleSheet.create({
     position: `relative`,
   },
   large: {
+    height: 40,
     padding: 10,
     marginVertical: 10,
     fontSize: 18,
     borderRadius: 15,
   },
   small: {
+    height: 35,
     padding: 8,
     marginHorizontal: 10,
     marginVertical: 5,

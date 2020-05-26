@@ -1,10 +1,11 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { CardStyleInterpolators } from '@react-navigation/stack'
 import { useTheme } from '@/hooks'
 import { Recommend } from './recommend'
 import { Plaza } from './plaza'
 import { Icon } from '@/components'
-import { goToPlaza, goToSearch } from '@/utils'
+import { goToSearch } from '@/utils'
 
 const Stack = createStackNavigator()
 
@@ -25,6 +26,7 @@ export const RecommendStackNavigator: React.SFC = () => {
         cardStyle: {
           backgroundColor,
         },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
