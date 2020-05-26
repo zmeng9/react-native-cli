@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { CardStyleInterpolators } from '@react-navigation/stack'
 import { useTheme } from '@/hooks'
 import { Recommend } from './recommend'
-import { Plaza } from './plaza'
 import { Icon } from '@/components'
 import { goToSearch } from '@/utils'
 
@@ -35,13 +34,6 @@ export const RecommendStackNavigator: React.SFC = () => {
         options={{
           headerTitle: `首页`,
           headerRight: () => <Icon name='ios-search' handle={goToSearch} />,
-        }}
-      />
-      <Stack.Screen
-        name='Plaza'
-        component={Plaza}
-        options={{
-          headerTitle: `广场`
         }}
       />
     </Stack.Navigator>
