@@ -1,4 +1,7 @@
 PODS:
+  - AMapFoundation (1.6.3)
+  - AMapLocation (2.6.5):
+    - AMapFoundation (~> 1.6.3)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - EXConstants (9.0.0):
@@ -41,6 +44,14 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
+  - Permission-Camera (2.1.5):
+    - RNPermissions
+  - Permission-Microphone (2.1.5):
+    - RNPermissions
+  - Permission-PhotoLibrary (2.1.5):
+    - RNPermissions
+  - QRScanner (1.3.2):
+    - React
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -204,11 +215,30 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
+  - react-native-amap-geolocation (1.0.4):
+    - AMapLocation (~> 2.6.0)
+    - React
+  - react-native-camera (3.26.0):
+    - React
+    - react-native-camera/RCT (= 3.26.0)
+    - react-native-camera/RN (= 3.26.0)
+  - react-native-camera/RCT (3.26.0):
+    - React
+  - react-native-camera/RN (3.26.0):
+    - React
+  - react-native-cameraroll (1.7.2):
+    - React
+  - react-native-image-picker (2.3.1):
+    - React
+  - react-native-nfc-manager (2.1.9):
+    - React
   - react-native-safe-area-context (0.7.3):
     - React
   - react-native-slider (2.0.9):
     - React
   - react-native-splash-screen (3.2.0):
+    - React
+  - react-native-view-shot (3.1.2):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -257,9 +287,13 @@ PODS:
     - SDWebImageWebPCoder (~> 0.4.1)
   - RNGestureHandler (1.6.1):
     - React
+  - RNPermissions (2.1.5):
+    - React
   - RNReanimated (1.7.1):
     - React
   - RNScreens (2.4.0):
+    - React
+  - RNSVG (12.1.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -269,6 +303,8 @@ PODS:
   - SDWebImageWebPCoder (0.4.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.5)
+  - TouchID (4.4.1):
+    - React
   - UMAppLoader (1.0.1)
   - UMBarCodeScannerInterface (5.1.0)
   - UMCameraInterface (5.1.0)
@@ -298,6 +334,10 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
+  - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone.podspec`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary.podspec`)
+  - QRScanner (from `../node_modules/react-native-qr-scanner`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -309,9 +349,15 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-amap-geolocation (from `../node_modules/react-native-amap-geolocation/lib/ios`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
+  - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-nfc-manager (from `../node_modules/react-native-nfc-manager`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -328,9 +374,12 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - TouchID (from `../node_modules/react-native-touch-id`)
   - UMAppLoader (from `../node_modules/unimodules-app-loader/ios`)
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
   - UMCameraInterface (from `../node_modules/unimodules-camera-interface/ios`)
@@ -348,6 +397,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - AMapFoundation
+    - AMapLocation
     - boost-for-react-native
     - libwebp
     - SDWebImage
@@ -372,6 +423,14 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
+  Permission-Microphone:
+    :path: "../node_modules/react-native-permissions/ios/Microphone.podspec"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary.podspec"
+  QRScanner:
+    :path: "../node_modules/react-native-qr-scanner"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -390,12 +449,24 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-amap-geolocation:
+    :path: "../node_modules/react-native-amap-geolocation/lib/ios"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
+  react-native-cameraroll:
+    :path: "../node_modules/@react-native-community/cameraroll"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
+  react-native-nfc-manager:
+    :path: "../node_modules/react-native-nfc-manager"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-view-shot:
+    :path: "../node_modules/react-native-view-shot"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -426,12 +497,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  TouchID:
+    :path: "../node_modules/react-native-touch-id"
   UMAppLoader:
     :path: "../node_modules/unimodules-app-loader/ios"
   UMBarCodeScannerInterface:
@@ -462,6 +539,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
+  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   EXConstants: 5304709b1bea70a4828f48ba4c7fc3ec3b2d9b17
@@ -473,6 +552,10 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   libwebp: 499adac5f5d12d7e1953f04316757480a396908b
+  Permission-Camera: afad27bf90337684d4a86f3825112d648c8c4d3b
+  Permission-Microphone: 0ffabc3fe1c75cfb260525ee3f529383c9f4368c
+  Permission-PhotoLibrary: 4d2eff62c8f4b8a27bcf045c0e36f5047efbbf20
+  QRScanner: 49473603fdb7677af54bfa3310e1a9c168c72117
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -482,9 +565,15 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
+  react-native-amap-geolocation: 0c548f405f2150e4c0304027a674a04c448b1689
+  react-native-camera: 2b74be8edc1103c4c46d1f4e5f41723d9ff052cc
+  react-native-cameraroll: 06e60780a4e6e7bb9a588eca72506744cf6e133b
+  react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
+  react-native-nfc-manager: 523a918c0ded58b8dba7bf50bda0f21e90bf1b7d
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-slider: e51492f1264d882a8815b71c5870f8978e52887d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-view-shot: 4475fde003fe8a210053d1f98fb9e06c1d834e1c
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -500,11 +589,14 @@ SPEC CHECKSUMS:
   RNCMaskedView: 76c40a1d41c3e2535df09246a2b5487f04de0814
   RNFastImage: 35ae972d6727c84ee3f5c6897e07f84d0a3445e9
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNPermissions: ad71dd4f767ec254f2cd57592fbee02afee75467
   RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
   RNScreens: b5c0e1b2b04512919e78bd3898e144a157ce2363
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
   SDWebImageWebPCoder: 36f8f47bd9879a8aea6044765c1351120fd8e3a8
+  TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   UMAppLoader: 90273a65f9b1d789214e0c913dfcabc7a1b1590e
   UMBarCodeScannerInterface: 9dc692b87e5f20fe277fa57aa47f45d418c3cc6c
   UMCameraInterface: 625878bbf2ba188a8548675e1d1d2e438a653e6d
@@ -520,6 +612,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: cb890c79c63885504ddc0efd7a7d01481760aca2
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 377fc47a5218e4bb2662b043a24d066e2417f874
+PODFILE CHECKSUM: 43187d4188df4570543e728fae96d0aafe5daa2f
 
 COCOAPODS: 1.9.1

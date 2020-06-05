@@ -7,6 +7,18 @@ export const isEmptyObj = (obj: Object) => {
   return true
 }
 
+export const isEmptyStr = (str: string) => {
+  return str.trim() === ``
+}
+
+export const isZero = (num: number) => {
+  return num === 0
+}
+
+export const isStartWithZero = (str: string) => {
+  return str.startsWith(`0`)
+}
+
 export const isUpper = (code: string) => {
   return /[A-Z]/.test(code)
 }

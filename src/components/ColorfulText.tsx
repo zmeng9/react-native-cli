@@ -1,64 +1,102 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useTheme } from '@/hooks'
+import { useTheme, useNormalize } from '@/hooks'
 import { IBaseColorType } from '@/themes'
+import { ITextStyle, IPress } from './common'
+import { Loading } from './Loading'
 
 
-export interface IColorfulTextProps {
+export interface IColorfulTextProps extends IPress {
+  style?: ITextStyle['textStyle']
   color?: keyof IBaseColorType
+  alwaysWhite?: boolean
+  alwaysBlack?: boolean
   fontWeight?: `normal` | `bold` | `300`
+  bold?: boolean
   lineHeight?: number
-  text: string
+  text: string | number
   numberOfLines?: number
-  marginTop?: number
-  marginBottom?: number
-  marginLeft?: number
-  marginRight?: number
+  margin?: number
   fontSize?: number
   textAlign?: `auto` | `center`
-  handle?: () => void
+  isLoading?: boolean
 }
 
 export const ColorfulText: React.SFC<IColorfulTextProps> = observer(({
+  style,
   color = `info`,
+  alwaysWhite,
+  alwaysBlack,
   fontWeight = `normal`,
+  bold,
   text,
   numberOfLines,
-  marginTop = 5,
-  marginBottom = 5,
-  marginLeft = 5,
-  marginRight = 5,
+  margin = 5,
   fontSize = 16,
   lineHeight = fontSize + 2,
   textAlign = `auto`,
-  handle,
+  isLoading = false,
+  onPress,
 }) => {
   const { text: themeText } = useTheme()
+  const { normalizeSize } = useNormalize()
 
-  return (
-    <TouchableWithoutFeedback onPress={handle} disabled={!(typeof handle === `function`)}>
-      <Text
-        numberOfLines={numberOfLines}
-        style={{
-          fontSize,
-          fontWeight,
-          lineHeight,
-          marginTop,
-          marginBottom,
-          marginLeft,
-          marginRight,
-          color: themeText[color],
-          textAlign,
-        }}
-      >
-        {text}
-      </Text>
-    </TouchableWithoutFeedback>
+  const fontColor = (() => {
+    if (alwaysWhite)
+      return `#fff`
+    else if (alwaysBlack)
+      return `#333`
+    else
+      return themeText[color]
+  })()
+
+  const renderText = () => (
+    <Text
+      numberOfLines={numberOfLines}
+      style={[{
+        fontSize: normalizeSize(fontSize),
+        fontWeight,
+        lineHeight,
+        margin,
+        color: fontColor,
+        textAlign,
+      }, {
+        fontWeight: bold ? `bold` : `normal`,
+      }, style]}
+    >
+      {text}
+    </Text>
   )
+
+  const renderContent = () => (
+    isLoading
+      ? (
+        <View style={styles.root}>
+          {renderText()}
+          {isLoading && <Loading />}
+        </View>
+      )
+      : renderText()
+  )
+
+  if (typeof onPress === `function`) {
+    return (
+      <TouchableWithoutFeedback
+        onPress={onPress}
+        disabled={!(typeof onPress === `function`) || isLoading}
+      >
+        {renderContent()}
+      </TouchableWithoutFeedback>
+    )
+  }
+  else
+    return renderContent()
 })
 
 const styles = StyleSheet.create({
   root: {
+    flexDirection: `row`,
+    alignItems: `center`,
   },
 })

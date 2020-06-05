@@ -1,20 +1,20 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { StyleSheet, Animated } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { useEffect } from '@/hooks'
+import { IChildren } from './common'
+
 
 /* 
  * Fade
  */
 
-interface ICommon {
-  children: React.ReactNode
-}
-
-export interface IFadeProps extends ICommon {
+ 
+export interface IFadeProps extends IChildren {
   isFade: boolean | null
 }
 
-export interface ISildeProps extends ICommon {
+export interface ISildeProps extends IChildren {
   direction?: `top` | `bottom` | `left` | `right`
   distance: number
   isSilde: boolean | null
@@ -67,9 +67,11 @@ export const Fade: React.SFC<IFadeProps> = observer(({
   )
 })
 
+
 /* 
  * Silde
 */
+
 
 export const Silde: React.SFC<ISildeProps> = observer(({
   children,

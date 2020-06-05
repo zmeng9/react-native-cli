@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import 'mobx-react-lite/batchingForReactNative'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDarkModeContext } from 'react-native-dark-mode'
@@ -9,8 +11,22 @@ import Reactotron from 'reactotron-react-native'
 import StackNavigator from './src/pages'
 import { navigationRef, isMountedRef } from './src/utils'
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet'
+import { zh_cn } from './src/locales'
+
+
 
 console.disableYellowBox = true
+
+
+/* 
+ * Locale
+ */
+ 
+
+moment.updateLocale(`zh-cn`, {
+  relativeTime: zh_cn.relativeTime,
+})
+
 
 /* 
  * 1. Start config when the development environment

@@ -17,6 +17,16 @@ export const ItemSize = types.model({
   height: 0,
 })
 
+export const HeaderSize = types.model({
+  width: 0,
+  height: 0,
+})
+
+export const FooterSize = types.model({
+  width: 0,
+  height: 0,
+})
+
 export const FlatListState = ({
   subtype,
   limit = 3,
@@ -28,6 +38,14 @@ export const FlatListState = ({
   refreshLimit: 0,
   isRefreshing: false,
   itemSize: types.optional(ItemSize, {
+    width: 0,
+    height: 0,
+  }),
+  headerSize: types.optional(HeaderSize, {
+    width: 0,
+    height: 0,
+  }),
+  footerSize: types.optional(FooterSize, {
     width: 0,
     height: 0,
   }),
@@ -96,5 +114,11 @@ export const FlatListActions = (self: any) => ({
   },
   setItemSize(itemSize: any) {
     self.itemSize = itemSize
+  },
+  setHeaderSize(headerSize: any) {
+    self.headerSize = headerSize
+  },
+  setFooterSize(footerSize: any) {
+    self.footerSize = footerSize
   },
 })

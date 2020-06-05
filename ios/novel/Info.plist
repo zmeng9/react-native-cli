@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>钱包</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,8 +31,22 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string/>
+	<key>NSFaceIDUsageDescription</key>
+	<string/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
+	<key>NFCReaderUsageDescription</key>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
@@ -46,8 +60,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

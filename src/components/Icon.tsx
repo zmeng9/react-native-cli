@@ -1,37 +1,55 @@
 import React from 'react'
 import VIcon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { useTheme } from '@/hooks'
+import { useTheme, useNormalize } from '@/hooks'
 import { IBaseColorType } from '@/themes'
+import { ColorfulText } from './ColorfulText'
+import { IStyle, IPress } from './common'
 
-export interface IIconProps {
+
+export interface IIconProps extends IStyle, IPress {
   name: string
+  bottomText?: string
   size?: number
+  alwaysWhite?: boolean
+  alwaysBlack?: boolean
   color?: keyof IBaseColorType
-  handle?: () => void
 }
 
 export const Icon: React.SFC<IIconProps> = ({
+  style,
   name,
+  bottomText,
   size = 28,
+  alwaysWhite,
+  alwaysBlack,
   color = `info`,
-  handle,
+  onPress,
 }) => {
   const theme = useTheme()
+  const { normalizeSize } = useNormalize()
+
+  const iconColor = (() => {
+    if (alwaysWhite)
+      return `#fff`
+    else if (alwaysBlack)
+      return `#333`
+    else
+      return theme[color]
+  })()
 
   return (
-    typeof handle === `function`
-      ? (
-        <TouchableOpacity style={styles.root} onPress={handle}>
-          <VIcon name={name} size={size} color={theme[color]} />
-        </TouchableOpacity>
-      )
-      : <VIcon style={styles.root} name={name} size={size} color={theme[color]} />
+    <TouchableOpacity style={[styles.root, style]} onPress={onPress} disabled={!(typeof onPress === `function`)}>
+      <VIcon name={name} size={normalizeSize(size)} color={iconColor} />
+      {bottomText && <ColorfulText text={bottomText} />}
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   root: {
     paddingHorizontal: 10,
+    alignItems: `center`,
+    justifyContent: `center`,
   },
 })

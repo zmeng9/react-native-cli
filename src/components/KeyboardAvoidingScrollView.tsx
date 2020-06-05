@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  ScrollView,
-} from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack'
 import { observer } from 'mobx-react-lite'
 
@@ -26,18 +22,17 @@ export const KeyboardAvoidingScrollView: React.SFC<IKeyboardAvoidingScrollViewPr
     <KeyboardAvoidingView
       style={styles.root}
       keyboardVerticalOffset={hasHeader ? headerHeight + 20 : 20}
-      behavior='padding'
+      behavior='height'
     >
       <ScrollView
         contentContainerStyle={[
-          styles.container, 
+          styles.container,
           centerContent && styles.centerContent,
           {
             paddingHorizontal,
           },
         ]}
         keyboardShouldPersistTaps='handled'
-        alwaysBounceVertical={false}
       >
         {children}
       </ScrollView>

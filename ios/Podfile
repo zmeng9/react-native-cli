@@ -5,7 +5,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
 target 'novel' do
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
   # Pods for novel
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone.podspec"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"

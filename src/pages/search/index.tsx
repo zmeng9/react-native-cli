@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Header } from './Header'
-import { useStores, useResetState } from '@/hooks'
+import { useStores, useResetStores } from '@/hooks'
 
 
 export const Search: React.FC = observer(() => {
@@ -12,7 +12,7 @@ export const Search: React.FC = observer(() => {
     setKeyword,
   } = searchStore
 
-  useResetState(searchStore)
+  useResetStores(searchStore)
 
   const handleSubmit = useCallback(() => {
     

@@ -1,19 +1,18 @@
 import React from 'react'
 import { useSafeArea } from 'react-native-safe-area-context'
-import { StyleSheet, View, Dimensions } from 'react-native'
-import { useHeaderHeight } from '@react-navigation/stack'
+import { StyleSheet, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useTheme } from '@/hooks'
+import { useTheme, useStores, useWindowSize } from '@/hooks'
 import { Icon } from './Icon'
 import { goBack } from '@/utils'
+import { IChildren } from './common'
 
-export interface IHeaderProps {
-  children?: React.ReactNode
+export interface IHeaderProps extends IChildren {
   type?: `header` | `footer`
   isEmpty?: boolean
 }
 
-const { width } = Dimensions.get('window')
+const { width } = useWindowSize()
 
 export const Header: React.SFC<IHeaderProps> = observer(({
   children,
@@ -22,10 +21,10 @@ export const Header: React.SFC<IHeaderProps> = observer(({
 }) => {
   const insets = useSafeArea()
   const { paper, divider } = useTheme()
-  const headerHeight = useHeaderHeight()
+  const { globalStore: { headerHeight } } = useStores()
   const isHeader = type === `header`
   const isFooter = type === `footer`
-  
+
   return (
     <View style={[
       styles.root,
@@ -41,7 +40,7 @@ export const Header: React.SFC<IHeaderProps> = observer(({
         borderTopColor: divider,
       }
     ]}>
-      {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' handle={goBack} size={32} />}
+      {(isHeader && !isEmpty) && <Icon name='ios-arrow-back' onPress={goBack} size={32} />}
       {children}
     </View>
   )

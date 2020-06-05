@@ -1,41 +1,20 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import { CardStyleInterpolators } from '@react-navigation/stack'
-import { useTheme } from '@/hooks'
+import { Navigator, Screen, Icon } from '@/components'
 import { Recommend } from './recommend'
-import { Icon } from '@/components'
 import { goToSearch } from '@/utils'
 
-const Stack = createStackNavigator()
 
-export const RecommendStackNavigator: React.SFC = () => {
-  const { text, paper, divider, shadowOffset, backgroundColor } = useTheme()
-
+export const RecommendNavigator: React.SFC = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTintColor: text.info,
-        headerBackTitleVisible: false,
-        headerTitleAlign: `center`,
-        headerStyle: {
-          backgroundColor: paper,
-          borderBottomColor: divider,
-          shadowOffset,
-        },
-        cardStyle: {
-          backgroundColor,
-        },
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-      }}
-    >
-      <Stack.Screen
+    <Navigator>
+      <Screen
         name='Recommend'
         component={Recommend}
         options={{
           headerTitle: `首页`,
-          headerRight: () => <Icon name='ios-search' handle={goToSearch} />,
+          headerRight: () => <Icon name='ios-search' onPress={goToSearch} />,
         }}
       />
-    </Stack.Navigator>
+    </Navigator>
   )
 }

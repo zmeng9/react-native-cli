@@ -81,16 +81,15 @@ export const Login: React.FC = observer(() => {
         size='large'
         disabled={unameOrPwdIsEmpty || isLoading}
         isLoading={isLoading}
-        handle={handleLogin}
+        onPress={handleLogin}
       />
       <View>
         <ColorfulText
           text='去注册'
           color='primary'
           fontSize={18}
-          marginTop={15}
           textAlign='center'
-          handle={goToReg}
+          onPress={goToReg}
         />
       </View>
     </KeyboardAvoidingScrollView>

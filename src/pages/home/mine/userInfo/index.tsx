@@ -7,20 +7,19 @@ import { ListItem } from '@/components'
 
 
 export const UserInfo: React.FC = observer(() => {
-  const { mineStore, bookrackStore } = useStores()
+  const { mineStore } = useStores()
 
   const logout = useCallback(async () => {
     await removeAuthToken()
     
     mineStore.reset()
-    bookrackStore.reset()
 
     goBack()
   }, [])
 
   return (
     <View style={styles.root}>
-      <ListItem type='center' text='退出登陆' colorfulTextType='error' handle={logout} />
+      <ListItem type='center' text='退出登陆' colorfulTextType='error' onPress={logout} />
     </View>
   )
 })

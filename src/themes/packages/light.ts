@@ -9,10 +9,10 @@ export const light: IPalette = {
   error: `#f44336`,
   backgroundColor: `#f0f0f0`,
   paper: `#fff`,
-  divider: `rgba(0, 0, 0, 0.12)`,
+  divider: `rgba(0, 0, 0, 0.25)`,
   text: {
     info: `#000`,
-    secondary: `#333`,
+    secondary: `#555`,
     primary: `#1976d2`,
     success: `#4caf50`,
     warning: `#ff9800`,
@@ -21,6 +21,8 @@ export const light: IPalette = {
   input: {
     contain: `#e2e2e2`,
     outline: `#fff`,
+    underline: `#fff`,
+    paypwd: `#fff`,
   },
   btn: {
     bg: {
@@ -36,7 +38,7 @@ export const light: IPalette = {
       info: `#000`,
       secondary: `#333`,
       primary: `#fff`,
-      success: `#4caf50`,
+      success: `#fff`,
       warning: `#ff9800`,
       error: `#f44336`,
       disabled: `#777`

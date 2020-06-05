@@ -2,8 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@/components'
 import { useTheme } from '@/hooks'
-import { MineStackNavigator as Mine } from './mine'
-import { RecommendStackNavigator as Recommend } from './recommend'
+import { MineNavigator as Mine } from './mine'
+import { RecommendNavigator as Recommend } from './recommend'
 
 
 const Tab = createBottomTabNavigator()

@@ -2,6 +2,10 @@ import React from 'react'
 import { ThemeContext } from '@/themes'
 
 
+/* 
+ * Theme hook
+ */
+
 export const useTheme = () => {
   const theme = React.useContext(ThemeContext)
 

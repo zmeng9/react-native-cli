@@ -15,7 +15,7 @@ export const ListHeader: React.SFC<IListHeaderProps> = observer(({
 }) => {
   const isLogin = authToken && userInfo
   return (
-    <Card handle={isLogin ? goToUserInfo : goToLogin}>
+    <Card onPress={isLogin ? goToUserInfo : goToLogin}>
       {
         isLogin
           ? (

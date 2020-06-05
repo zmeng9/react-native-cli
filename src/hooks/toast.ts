@@ -1,6 +1,12 @@
 import Toast from 'react-native-root-toast'
 import { useTheme } from './theme'
 
+
+/* 
+ * Toast hook
+ */
+
+ 
 export const useToast = () => {
   const { text, paper } = useTheme()
 

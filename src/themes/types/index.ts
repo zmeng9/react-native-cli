@@ -15,6 +15,8 @@ export interface IBaseColorType {
 export interface IInputColorType {
   contain: string
   outline: string
+  underline: string
+  paypwd: string
 }
 
 export interface IBtnColorType extends IBaseColorType {

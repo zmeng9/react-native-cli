@@ -1,17 +1,31 @@
 import React from 'react'
-import { StyleSheet, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { ColorfulText } from './ColorfulText'
 
 
-export const Loading: React.SFC = observer(({
+export interface ILoadingProps {
+  fullScreen?: boolean
+  bottomText?: string
+}
 
+export const Loading: React.SFC<ILoadingProps> = observer(({
+  fullScreen = false,
+  bottomText,
 }) => {
-  return <ActivityIndicator style={styles.root} />
+  return (
+    <View style={[styles.root, fullScreen ? { flex: 1 } : {}]}>
+      <ActivityIndicator style={styles.loading} />
+      {bottomText && <ColorfulText text={bottomText} style={{ marginTop: 10 }} />}
+    </View>
+  )
 })
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    padding: 10,
+    justifyContent: `center`,
+  },
+  loading: {
+    margin: 5,
   },
 })

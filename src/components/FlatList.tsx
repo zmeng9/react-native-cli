@@ -1,31 +1,42 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { StyleSheet, FlatList as RnFlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { useSafeArea } from 'react-native-safe-area-context'
 import { Loading } from './Loading'
 import { NoData } from './NoData'
-import { useIsFirstRender, useToast } from '@/hooks'
+import { ViewSize } from '@/components'
+import { useIsFirstRender, useToast, useEffect } from '@/hooks'
+import { IStyle } from './common'
 
-export interface IFlatListProps {
+export interface IFlatListProps extends IStyle {
   store: any
   data: any
+  extraData?: any
   refreshData?: any
   noDataText?: string
   alwaysBounceVertical?: boolean
-  contentContainerStyle?: Object
   numColumns?: number
+  itemDeps?: Array<any>
   renderItem: ({ item }: any) => React.ReactElement | null
+  renderHeader?: (props?: any) => React.ReactElement | null
+  renderFooter?: (props?: any) => React.ReactElement | null
 }
 
 export const FlatList: React.FC<IFlatListProps> = observer(({
+  style,
   store,
   data,
+  extraData,
   refreshData,
   noDataText,
-  alwaysBounceVertical = false,
-  contentContainerStyle = {},
+  alwaysBounceVertical = true,
   numColumns = 1,
+  itemDeps = [],
   renderItem,
+  renderHeader,
+  renderFooter,
 }) => {
+  const { bottom } = useSafeArea()
   const toast = useToast()
   const isFirstRender = useIsFirstRender()
 
@@ -40,6 +51,8 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     count,
     totalCount,
     itemSize,
+    headerSize,
+    footerSize,
     bulkAddToListData,
     bulkUnshiftToListData,
     replaceListData,
@@ -47,13 +60,17 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     setRefreshLimit,
     setIsRefreshing,
     setTotalCount,
+    setHeaderSize,
+    setItemSize,
+    setFooterSize,
   } = store
 
   const totalHeight = (() => {
-    const paddingV = 20
+    const paddingV = 10 + (bottom || 10)
     const cloumnCount = Math.ceil(count / numColumns)
     const itemTotalHeight = itemSize.height * cloumnCount
-    return !!itemTotalHeight ? itemTotalHeight + paddingV : `100%`
+    const totalHeight = itemTotalHeight + headerSize.height + footerSize.height + paddingV
+    return !!itemTotalHeight ? totalHeight : `100%`
   })()
 
 
@@ -123,27 +140,54 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
   const getItemLayout = useCallback((data: any, index: number) => ({
     length: itemSize.height,
-    offset: itemSize.height * index,
+    offset: itemSize.height * index + headerSize.height + footerSize.height,
     index,
   }), [])
+
+  const _renderHeader = useCallback((args?: any) => (
+    <ViewSize setSize={setHeaderSize}>
+      {renderHeader && renderHeader()}
+    </ViewSize>
+  ), [extraData])
+
+  const _renderItem = useCallback((args: any) => (
+    <ViewSize setSize={setItemSize}>
+      {renderItem(args)}
+    </ViewSize>
+  ), itemDeps)
+
+  const _renderFooter = useCallback((args?: any) => {
+    return (
+      <ViewSize setSize={setFooterSize}>
+        {renderFooter && renderFooter()}
+        {(isLoading && totalCount > 0) ? <Loading /> : null}
+      </ViewSize>
+    )
+  }, [extraData])
 
   return (
     <RnFlatList
       contentContainerStyle={[
         styles.root,
-        { height: totalHeight },
-        contentContainerStyle,
+        {
+          paddingBottom: bottom || 10,
+          height: totalHeight,
+        },
+        style,
       ]}
       data={numColumns > 1 ? listData.slice() : listData}
+      extraData={extraData}
       scrollIndicatorInsets={{ right: 1 }}
       keyboardDismissMode='on-drag'
+      keyboardShouldPersistTaps='handled'
       alwaysBounceVertical={isLoading || alwaysBounceVertical}
-      ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
-      ListFooterComponent={(isLoading && totalCount > 0) ? <Loading /> : null}
       refreshing={isRefreshing}
       onRefresh={refreshData === undefined ? null : handleRefreshing}
       keyExtractor={keyExtractor}
-      renderItem={renderItem}
+      ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
+      ListHeaderComponent={_renderHeader}
+      ListFooterComponent={_renderFooter}
+      renderItem={_renderItem}
       initialNumToRender={limit}
       numColumns={numColumns}
       onEndReachedThreshold={0.1}
@@ -155,6 +199,6 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    paddingVertical: 10,
+    paddingTop: 10,
   },
 })

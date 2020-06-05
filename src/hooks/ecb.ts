@@ -1,4 +1,5 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useCallback } from 'react'
+import { useEffect } from './effect'
 
 /* 
  * The memoize useCallback

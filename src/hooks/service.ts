@@ -3,6 +3,11 @@ import { useIsFirstRender } from './isFirstRender'
 import { useToast } from './toast'
 import _ from 'lodash'
 
+
+/* 
+ * Service hook
+ */
+
 export interface IService {
   store: any,
   service: (...params: any) => any

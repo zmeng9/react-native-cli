@@ -1,35 +1,27 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import { CardStyleInterpolators } from '@react-navigation/stack'
-import { useTheme } from '../hooks'
+import { Navigator, Screen } from '@/components'
 import { HomeTab as Home } from './home'
 import { Search } from './search'
 
 
-
-const Stack = createStackNavigator()
-
 const StackNavigator: React.SFC = () => {
-  const { backgroundColor } = useTheme()
-
   return (
-    <Stack.Navigator
-      initialRouteName='Home'
-      headerMode='none'
-      screenOptions={{
-        cardStyle: { backgroundColor },
-        cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
-      }}
-    >
-      <Stack.Screen
+    <Navigator>
+      <Screen
         name='Home'
         component={Home}
+        options={{
+          headerShown: false,
+        }}
       />
-      <Stack.Screen
+      <Screen
         name='Search'
         component={Search}
+        options={{
+          headerShown: false,
+        }}
       />
-    </Stack.Navigator>
+    </Navigator>
   )
 }
 

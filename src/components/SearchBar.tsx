@@ -25,7 +25,7 @@ export const SearchBar: React.SFC<ISearchBarProps> = observer(({
           autoFocus
         />
       </View>
-      <ColorfulText text='取消' handle={goBack} marginRight={12} />
+      <ColorfulText text='取消' onPress={goBack} />
     </View>
   )
 })

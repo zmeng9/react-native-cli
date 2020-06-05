@@ -2,7 +2,7 @@ import { IPalette } from '../types'
 
 export const dark: IPalette = {
   info: `#ccc`,
-  secondary: `#9a0036`,
+  secondary: `#333`,
   primary: `#115293`,
   success: `#388e3c`,
   warning: `#ff9800`,
@@ -21,6 +21,8 @@ export const dark: IPalette = {
   input: {
     contain: `#333`,
     outline: `#333`,
+    underline: `#212121`,
+    paypwd: `#212121`,
   },
   btn: {
     bg: {
@@ -36,7 +38,7 @@ export const dark: IPalette = {
       info: `#ccc`,
       secondary: `#aaa`,
       primary: `#ccc`,
-      success: `#388e3c`,
+      success: `#ccc`,
       warning: `#ff9800`,
       error: `#f44336`,
       disabled: `#aaa`,
