@@ -8,7 +8,7 @@ import { useService } from './service'
  * Use get and set userinfo hook 
  */
 
-export const useGetUserInfo = () => {
+export const useUserInfo = () => {
   const { mineStore } = useStores()
   const { setUserInfo } =  mineStore
 
