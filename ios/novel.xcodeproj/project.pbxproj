@@ -19,6 +19,8 @@
 		C41CB0E12459B8BF008FFFE3 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0E02459B8BF008FFFE3 /* BroadcastSetupViewController.swift */; };
 		C41CB0ED2459B8F7008FFFE3 /* novel_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */; };
 		C49371292459FD8A002AFE50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49371282459FD8A002AFE50 /* Launch Screen.storyboard */; };
+		C4ACE71C2489DF24008AE77C /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4ACE71B2489DF24008AE77C /* AMapFoundationKit.framework */; };
+		C4ACE71E2489DF2D008AE77C /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4ACE71D2489DF2D008AE77C /* AMapLocationKit.framework */; };
 		E9A30F68EAB2D1CEFADD9356 /* libPods-novelTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32784ACCF1F2A1C02876BB5C /* libPods-novelTests.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = novel_tvOSTests.swift; sourceTree = "<group>"; };
 		C41CB0EE2459B8F7008FFFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49371282459FD8A002AFE50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C4ACE71B2489DF24008AE77C /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		C4ACE71D2489DF2D008AE77C /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -81,6 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4ACE71E2489DF2D008AE77C /* AMapLocationKit.framework in Frameworks */,
+				C4ACE71C2489DF24008AE77C /* AMapFoundationKit.framework in Frameworks */,
 				1C1DCF3E69D4B1FC484E3A3D /* libPods-novel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +146,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4ACE71D2489DF2D008AE77C /* AMapLocationKit.framework */,
+				C4ACE71B2489DF24008AE77C /* AMapFoundationKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				C41CB0DB2459B8BF008FFFE3 /* ReplayKit.framework */,
@@ -652,6 +660,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M769C3FTS2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = novel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -673,6 +685,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M769C3FTS2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = novel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
