@@ -2,7 +2,8 @@ import React from 'react'
 import { View, StyleSheet, TextInput, KeyboardTypeOptions } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Icon } from './Icon'
-import { useTheme } from '@/hooks'
+import { Loading } from './Loading'
+import { useTheme, useNormalize } from '@/hooks'
 import { ITextStyle } from './common'
 
 export interface IInputProps {
@@ -10,8 +11,9 @@ export interface IInputProps {
   value: string
   type?: `contain` | `outline` | `underline`
   size?: `large` | `small`
-  leftIcon?: React.ReactNode
   leftIconName?: string
+  rightIconName?: string
+  isLoading?: boolean
   placeholder?: string
   editable?: boolean
   maxLength?: number
@@ -22,6 +24,7 @@ export interface IInputProps {
   returnKeyType?: `done` | `search` | `go`
   onChangeText: (text: string) => void
   onSubmitEditing?: () => void
+  onPressRightIcon?: (...args: any) => void
 }
 
 export const Input: React.SFC<IInputProps> = observer(({
@@ -29,8 +32,9 @@ export const Input: React.SFC<IInputProps> = observer(({
   value,
   type = `outline`,
   size = `small`,
-  leftIcon,
   leftIconName,
+  rightIconName,
+  isLoading,
   placeholder = ``,
   editable = true,
   maxLength,
@@ -41,7 +45,9 @@ export const Input: React.SFC<IInputProps> = observer(({
   returnKeyType = `done`,
   onChangeText,
   onSubmitEditing,
+  onPressRightIcon,
 }) => {
+  const { normalizeSize } = useNormalize()
   const { input, divider, text } = useTheme()
   const isSmall = size === `small`
 
@@ -59,21 +65,17 @@ export const Input: React.SFC<IInputProps> = observer(({
 
   return (
     <View style={styles.root}>
-      {
-        (leftIcon || leftIconName) && (
-          <View style={styles.leftIconConatiner}>
-            {leftIcon ? leftIcon : <Icon name={leftIconName as string} size={isSmall ? 24 : 30} />}
-          </View>
-        )
-      }
+      {leftIconName && <Icon name={leftIconName} style={styles.leftIcon} size={isSmall ? 24 : 30} />}
       <TextInput
         style={[
           styles[size],
           {
             borderColor: divider,
             backgroundColor: input[type],
-            paddingLeft: (leftIcon || leftIconName) ? 40 : 10,
+            paddingLeft: leftIconName ? 40 : 10,
+            paddingRight: rightIconName ? 40: 10,
             color: text.info,
+            fontSize: isSmall ? normalizeSize(16) : normalizeSize(18),
           },
           inputStyle,
           style,
@@ -91,6 +93,8 @@ export const Input: React.SFC<IInputProps> = observer(({
         secureTextEntry={secureTextEntry}
         returnKeyType={returnKeyType}
       />
+      {rightIconName && <Icon name={rightIconName} style={styles.rightIcon} onPress={onPressRightIcon} size={isSmall ? 24 : 30} />}
+      {isLoading && <Loading style={styles.rightIcon} />}
     </View>
   )
 })
@@ -104,7 +108,6 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     marginVertical: 10,
-    fontSize: 18,
     borderRadius: 15,
   },
   small: {
@@ -112,12 +115,16 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 10,
     marginVertical: 5,
-    fontSize: 16,
     borderRadius: 8,
   },
-  leftIconConatiner: {
+  leftIcon: {
     position: `absolute`,
     left: 10,
+    zIndex: 1,
+  },
+  rightIcon: {
+    position: `absolute`,
+    right: 10,
     zIndex: 1,
   },
 })

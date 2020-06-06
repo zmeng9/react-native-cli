@@ -111,7 +111,12 @@ export const CardHeader: React.SFC<ICardHeaderProps> = observer(({
         borderLeftWidth: border ? 0.7 : 0,
         borderRightWidth: border ? 0.7 : 0,
         borderColor: divider,
+        marginBottom: -0.7,
         ...shadow,
+        shadowOffset: {
+          width: 0,
+          height: -10,
+        },
       },
       style,
     ]}>

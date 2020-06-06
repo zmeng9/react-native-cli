@@ -14,7 +14,7 @@ export interface IListItemProps extends IStyle, IPress {
   leftTextStyle?: ITextStyle['textStyle']
   rightTextStyle?: ITextStyle['textStyle']
   type?: `space-between` | `center`
-  colorfulTextType?: keyof IBaseColorType
+  textColor?: keyof IBaseColorType
   text?: string
   isNavigator?: boolean
   leftText?: string
@@ -39,7 +39,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
   leftTextStyle,
   rightTextStyle,
   type = `space-between`,
-  colorfulTextType,
+  textColor,
   isNavigator = false,
   text,
   leftText,
@@ -61,7 +61,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
             <ColorfulText
               style={textStyle}
               text={text}
-              color={colorfulTextType}
+              color={textColor}
               textAlign='center'
             />
           ))
@@ -78,7 +78,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
                   <ColorfulText
                     style={leftTextStyle}
                     text={leftText}
-                    color={colorfulTextType}
+                    color={textColor}
                     onPress={onPressLeftText}
                   />
                 )}
@@ -94,7 +94,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
                   <ColorfulText
                     style={rightTextStyle}
                     text={rightText}
-                    color={colorfulTextType}
+                    color={textColor}
                     onPress={onPressRightText}
                   />
                 )}
