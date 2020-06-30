@@ -17,6 +17,7 @@ export const SearchBar: React.SFC<ISearchBarProps> = observer(({
       <View style={styles.input}>
         <Input
           {...inputProps}
+          size='small'
           leftIconName='ios-search'
           type='contain'
           placeholder='搜索'
@@ -25,7 +26,7 @@ export const SearchBar: React.SFC<ISearchBarProps> = observer(({
           autoFocus
         />
       </View>
-      <ColorfulText text='取消' onPress={goBack} />
+      <ColorfulText text='取消' onPress={goBack} style={{ marginHorizontal: 10 }} />
     </View>
   )
 })
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: `row`,
   },
   input: {
+    marginLeft: 10,
     flex: 1,
   },
 })

@@ -1,6 +1,7 @@
-import NfcManager, { Ndef, NfcEvents, TagEvent, NfcTech } from 'react-native-nfc-manager'
-import { useEffect } from './effect'
-import { useToast } from './toast'
+import { useState } from 'react'
+import NfcManager, { Ndef, NfcEvents, NfcTech } from 'react-native-nfc-manager'
+import { useFocusEffect } from './focusEffect'
+
 
 /* 
  * Use nfc hook-----
@@ -8,14 +9,13 @@ import { useToast } from './toast'
 
 
 export const useNfc = () => {
-  const toast = useToast()
+  const [tag, setTag] = useState<any>()
 
-  useEffect(() => {
+  useFocusEffect(() => {
     NfcManager.start()
     NfcManager.registerTagEvent()
-    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag: TagEvent) => {
-      console.log(`tag`, tag)
-      toast(JSON.stringify(tag))
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag: any) => {
+      setTag(tag)
     })
 
     return () => {
@@ -47,6 +47,7 @@ export const useNfc = () => {
   }
 
   return {
+    tag,
     write,
   }
 }

@@ -1,20 +1,43 @@
 import { types } from 'mobx-state-tree'
+import { Service } from '../common'
+
+
+/* 
+ * User status
+ */
 
 const Location = types.model({
-  city: ``,
-  district: ``,
+  city: types.string,
+  district: types.string,
 })
 
-export const Global = types
-  .model({
-    headerHeight: 0,
-    location: types.maybeNull(Location),
-  })
-  .actions(self => ({
-    setHeaderHeight(headerHeight: any) {
-      self.headerHeight = headerHeight
-    },
-    setLocation(location: any) {
-      self.location = location
-    },
-  }))
+
+export const UserInfo = types.model({})
+
+export const Global = types.compose(
+  Service(false),
+  types
+    .model({
+      isLogout: false,
+      headerHeight: 0,
+      location: types.maybeNull(Location),
+      authToken: types.maybeNull(types.string),
+      userInfo: types.optional(UserInfo, {}),
+    })
+    .actions(self => ({
+      setIsLogout(isLogout: boolean) {
+        self.isLogout = isLogout
+      },
+      setHeaderHeight(headerHeight: number) {
+        self.headerHeight = headerHeight
+      },
+      setLocation(location: any) {
+        self.location = location
+      },
+      setAuthToken(authToken: any) {
+        self.authToken = authToken
+      },
+      setUserInfo(userInfo: any) {
+        self.userInfo = userInfo
+      },
+    })))

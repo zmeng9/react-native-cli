@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { useNormalize } from '@/hooks'
 import { isEmptyStr, isStartWithZero } from '@/utils'
 import { Card } from './Card'
 import { Input, IInputProps } from './Input'
@@ -19,25 +20,28 @@ export interface IMoneyCardProps extends IPress {
 
 export const MoneyCard: React.SFC<IMoneyCardProps> = observer(({
   title = `付款金额`,
-  text = `确认`,
+  text = `确定`,
   value,
   editable,
   onChangeText,
   onPress,
 }) => {
+  const { normalizeSize } = useNormalize()
+
   return (
     <Card title={title} style={{ paddingBottom: 15 }}>
         <Input
-          autoFocus
-          leftIcon={<ColorfulText text='￥' bold fontSize={24} />}
+          // autoFocus
+          leftComponent={<ColorfulText text='￥' bold fontSize={24} style={{ marginLeft: 10 }} />}
           type='underline'
           value={value}
           keyboardType='numeric'
           onChangeText={onChangeText}
           editable={editable}
           style={{
-            fontSize: 24,
+            fontSize: normalizeSize(26),
             height: 40,
+            paddingVertical: 7,
           }}
         />
         <Btn

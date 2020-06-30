@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { StyleSheet, Animated } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from '@/hooks'
+import { useFocusEffect } from '@/hooks'
 import { IChildren } from './common'
 
 
@@ -9,15 +9,15 @@ import { IChildren } from './common'
  * Fade
  */
 
- 
+
 export interface IFadeProps extends IChildren {
   isFade: boolean | null
 }
 
-export interface ISildeProps extends IChildren {
-  direction?: `top` | `bottom` | `left` | `right`
+export interface ISlideProps extends IChildren {
   distance: number
-  isSilde: boolean | null
+  duration?: number
+  isSlide: boolean | null
 }
 
 export const Fade: React.SFC<IFadeProps> = observer(({
@@ -44,7 +44,7 @@ export const Fade: React.SFC<IFadeProps> = observer(({
     }).start()
   }
 
-  useEffect(() => {
+  useFocusEffect(() => {
     if (isFade === null)
       return
     else if (isFade)
@@ -54,14 +54,7 @@ export const Fade: React.SFC<IFadeProps> = observer(({
   }, [isFade])
 
   return (
-    <Animated.View
-      style={[
-        styles.root,
-        {
-          opacity: fadeAnim // Bind opacity to animated value
-        }
-      ]}
-    >
+    <Animated.View style={{ opacity: fadeAnim }}>
       {children}
     </Animated.View>
   )
@@ -69,50 +62,45 @@ export const Fade: React.SFC<IFadeProps> = observer(({
 
 
 /* 
- * Silde
+ * Slide
 */
 
 
-export const Silde: React.SFC<ISildeProps> = observer(({
+export const Slide: React.SFC<ISlideProps> = observer(({
   children,
-  isSilde,
-  direction = `top`,
+  isSlide,
   distance = 0,
+  duration = 300,
 }) => {
-  
+  const slideAnim = useRef(new Animated.Value(distance)).current
 
-  const sildeAnim = useRef(new Animated.Value(-distance)).current
-
-  const sildeIn = () => {
-    Animated.timing(sildeAnim, {
+  const slideIn = () => {
+    Animated.timing(slideAnim, {
       toValue: 0,
-      duration: 300,
-      useNativeDriver: false,
+      duration,
+      useNativeDriver: true,
     }).start()
   }
 
-  const sildeOut = () => {
-    Animated.timing(sildeAnim, {
-      toValue: -distance,
-      duration: 300,
-      useNativeDriver: false,
+  const slideOut = () => {
+    Animated.timing(slideAnim, {
+      toValue: distance,
+      duration,
+      useNativeDriver: true,
     }).start()
   }
 
-  useEffect(() => {
-    if (isSilde === null)
+  useFocusEffect(() => {
+    if (isSlide === null)
       return
-    else if (isSilde)
-      sildeIn()
+    else if (isSlide)
+      slideIn()
     else
-      sildeOut()
-  }, [isSilde])
+      slideOut()
+  }, [isSlide])
 
   return (
-    <Animated.View style={{
-      position: `absolute`,
-      [direction]: sildeAnim,
-    }}>
+    <Animated.View style={{ transform: [{ translateY: slideAnim }] }}>
       {children}
     </Animated.View>
   )

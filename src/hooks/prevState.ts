@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useEffect } from './effect'
+import { useFocusEffect } from './focusEffect'
 
 
 /* 
@@ -12,8 +12,10 @@ export const usePrevState = <T>(
   deps: Array<any> = [],
 ): T => {
   const ref: any = useRef()
-  useEffect(() => {
+
+  useFocusEffect(() => {
     ref.current = value
   }, deps)
+  
   return ref.current
 }

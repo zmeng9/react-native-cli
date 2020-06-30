@@ -26,7 +26,7 @@ export const dark: IPalette = {
   },
   btn: {
     bg: {
-      info: `#212121`,
+      info: `#333`,
       secondary: `#9a0036`,
       primary: `#115293`,
       success: `#388e3c`,
@@ -40,7 +40,7 @@ export const dark: IPalette = {
       primary: `#ccc`,
       success: `#ccc`,
       warning: `#ff9800`,
-      error: `#f44336`,
+      error: `#fff`,
       disabled: `#aaa`,
     },
   },

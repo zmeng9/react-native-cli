@@ -1,4 +1,6 @@
-import { useEffect } from './effect'
+import { useFocusEffect } from './focusEffect'
+import { useStores } from './stores'
+
 
 
 /* 
@@ -6,10 +8,22 @@ import { useEffect } from './effect'
  */
 
 export const useResetFields = (fns: Array<() => void>, isFocus: boolean = false) => {
-  useEffect(() => {
+  useFocusEffect(() => {
     if (isFocus)
       fns.forEach(fn => fn())
     else
       return () => fns.forEach(fn => fn())
   })
+}
+
+export const useResetWsResult = () => {
+  const { globalStore } = useStores()
+  const { setLibwalletResult, setTransponderResult } = globalStore
+
+  useFocusEffect(() => {
+    return () => {
+      setLibwalletResult(null)
+      setTransponderResult(null)
+    }
+  }, [])
 }

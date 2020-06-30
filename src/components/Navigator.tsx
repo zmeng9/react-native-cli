@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
 import { useTheme, useNormalize } from '@/hooks'
 import { IChildren } from './common'
@@ -6,13 +7,13 @@ import { IChildren } from './common'
 
 const Stack = createStackNavigator()
 
-export const Screen = Stack.Screen
+const Screen = Stack.Screen
 
 export interface INavigator extends IChildren {
 
 }
 
-export const Navigator: React.SFC<INavigator> = ({
+export const Navigator: React.SFC<INavigator> = observer(({
   children,
 }) => {
   const { normalizeSize } = useNormalize()
@@ -42,4 +43,9 @@ export const Navigator: React.SFC<INavigator> = ({
       {children}
     </Stack.Navigator>
   )
+})
+
+export {
+  Screen,
+  CardStyleInterpolators,
 }

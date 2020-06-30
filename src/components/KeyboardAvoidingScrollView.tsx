@@ -1,39 +1,32 @@
 import React from 'react'
-import { StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native'
-import { useHeaderHeight } from '@react-navigation/stack'
+import { StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { observer } from 'mobx-react-lite'
+import { useStores, usePlatform } from '@/hooks'
+import { ScrollView } from './ScrollView'
+import { IStyle, IChildren } from './common'
 
-export interface IKeyboardAvoidingScrollViewProps {
-  children: React.ReactNode
-  hasHeader?: boolean
-  centerContent?: boolean
-  paddingHorizontal?: number
+
+export interface IKeyboardAvoidingScrollViewProps extends IStyle, IChildren {
+  contentContainerStyle?: IStyle['style']
 }
 
 export const KeyboardAvoidingScrollView: React.SFC<IKeyboardAvoidingScrollViewProps> = observer(({
+  style,
+  contentContainerStyle,
   children,
-  hasHeader = false,
-  centerContent = false,
-  paddingHorizontal = 0,
 }) => {
-  const headerHeight = useHeaderHeight()
+  const { isIos } = usePlatform()
+  const { globalStore } = useStores()
+  const { headerHeight } = globalStore
+
 
   return (
     <KeyboardAvoidingView
-      style={styles.root}
-      keyboardVerticalOffset={hasHeader ? headerHeight + 20 : 20}
-      behavior='height'
+      style={[styles.root, style]}
+      keyboardVerticalOffset={headerHeight}
+      behavior={isIos ? `padding` : undefined}
     >
-      <ScrollView
-        contentContainerStyle={[
-          styles.container,
-          centerContent && styles.centerContent,
-          {
-            paddingHorizontal,
-          },
-        ]}
-        keyboardShouldPersistTaps='handled'
-      >
+      <ScrollView style={[styles.container, contentContainerStyle]} >
         {children}
       </ScrollView>
     </KeyboardAvoidingView>
@@ -45,9 +38,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flexGrow: 1,
-  },
-  centerContent: {
-    justifyContent: `center`,
+    paddingVertical: 10,
   },
 })

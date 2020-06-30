@@ -1,41 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { TabBar } from 'react-native-tab-view'
-import { useSafeArea } from 'react-native-safe-area-context'
-import { useTheme, useNormalize } from '@/hooks'
+import { TabView as RnTabView, TabBar, SceneRendererProps } from 'react-native-tab-view'
+import { useTheme, useWindowSize, useNormalize, useSafeArea } from '@/hooks'
+import { IStyle } from './common'
 
 
-export interface ITabbarProps {
-  props: any
+const { width } = useWindowSize()
+
+export interface ITabViewProps extends IStyle {
+  routes: Array<{ key: string, title: string }>
+  renderScene: (props: SceneRendererProps & {
+    route: any
+  }) => React.ReactNode
 }
 
-export interface ITabIndicatorProps {
-
-}
-
-export const Tabbar: React.SFC<ITabbarProps> = observer(({
-  props,
+export const TabView: React.SFC<ITabViewProps> = observer(({
+  style,
+  routes,
+  renderScene,
 }) => {
   const { normalizeSize } = useNormalize()
   const { paper, text, info } = useTheme()
+  const { top } = useSafeArea()
+  const [index, setIndex] = useState(0)
 
   return (
-    <TabBar
-      {...props}
-      indicatorStyle={{
-        backgroundColor: info,
-      }}
-      labelStyle={{
-        color: text.info,
-        fontSize: normalizeSize(16),
-      }}
-      style={[
-        styles.root,
-        {
-          backgroundColor: paper,
-        },
-      ]}
+    <RnTabView
+      style={[styles.root, style]}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      renderTabBar={props => (
+        <TabBar
+          {...props}
+          indicatorStyle={{
+            backgroundColor: info,
+          }}
+          labelStyle={{
+            color: text.info,
+            fontSize: normalizeSize(16),
+          }}
+          style={[
+            styles.root,
+            {
+              paddingTop: top,
+              backgroundColor: paper,
+            },
+          ]}
+        />
+      )}
+      onIndexChange={setIndex}
+      initialLayout={{ width }}
     />
   )
 })

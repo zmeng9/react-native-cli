@@ -1,23 +1,23 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, FlatList as RnFlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useSafeArea } from 'react-native-safe-area-context'
 import { Loading } from './Loading'
+import { Skeleton } from './Skeleton'
 import { NoData } from './NoData'
 import { ViewSize } from '@/components'
-import { useIsFirstRender, useToast, useEffect } from '@/hooks'
-import { IStyle } from './common'
+import { useIsFirstRender, useToast, useFocusEffect, useSafeArea } from '@/hooks'
+import { IStyle, IRenderItem } from './common'
 
-export interface IFlatListProps extends IStyle {
+export interface IFlatListProps extends IStyle, IRenderItem {
   store: any
-  data: any
+  result: any
   extraData?: any
   refreshData?: any
   noDataText?: string
+  useSkeleton?: boolean
   alwaysBounceVertical?: boolean
   numColumns?: number
   itemDeps?: Array<any>
-  renderItem: ({ item }: any) => React.ReactElement | null
   renderHeader?: (props?: any) => React.ReactElement | null
   renderFooter?: (props?: any) => React.ReactElement | null
 }
@@ -25,10 +25,11 @@ export interface IFlatListProps extends IStyle {
 export const FlatList: React.FC<IFlatListProps> = observer(({
   style,
   store,
-  data,
+  result,
   extraData,
   refreshData,
   noDataText,
+  useSkeleton = true,
   alwaysBounceVertical = true,
   numColumns = 1,
   itemDeps = [],
@@ -73,10 +74,9 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     return !!itemTotalHeight ? totalHeight : `100%`
   })()
 
-
-  useEffect(() => {
-    if (data) {
-      const { rows = [], count = 0 } = data
+  useFocusEffect(() => {
+    if (result && result.data) {
+      const { rows = [], count = 0 } = result.data
 
       if (offset === 0)
         replaceListData(rows)
@@ -85,27 +85,25 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
 
       setTotalCount(count)
     }
-  }, [data])
+  }, [result])
 
   // Refreshing data
-  useEffect(() => {
+  useFocusEffect(() => {
     if ((refreshData && isRefreshing) || (refreshData && refreshLimit > 0)) {
       const { rows = [], count = 0 } = refreshData
+
       // If the count of new listData is more than the pre count of listData 
       if (refreshLimit > 0) {
         bulkUnshiftToListData(rows)
         setRefreshLimit(0)
 
         toast(`已更新`)
-        return
-      }
-      if (count > totalCount) {
+      } if (count > totalCount) {
         const newDataCount = count - totalCount
         setRefreshLimit(newDataCount)
         setTotalCount(count)
         setIsRefreshing(false)
-      }
-      else {
+      } else {
         toast(`暂无新的内容`)
       }
 
@@ -118,7 +116,7 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
    * 2. Set refresh limit be 3 beacuse the user maybe refreshing when error is not
    */
 
-  useEffect(() => {
+  useFocusEffect(() => {
     if (!isFirstRender && error) {
       setIsRefreshing(false)
       setRefreshLimit(3)
@@ -134,8 +132,8 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
     setIsRefreshing(true)
   }, [])
 
-  const keyExtractor = useCallback((item: any) => {
-    return String(item.id)
+  const keyExtractor = useCallback((item: any, index: number) => {
+    return String(item.id || index)
   }, [])
 
   const getItemLayout = useCallback((data: any, index: number) => ({
@@ -184,8 +182,15 @@ export const FlatList: React.FC<IFlatListProps> = observer(({
       refreshing={isRefreshing}
       onRefresh={refreshData === undefined ? null : handleRefreshing}
       keyExtractor={keyExtractor}
-      ListEmptyComponent={isLoading ? <Loading /> : <NoData text={noDataText} />}
-      ListHeaderComponent={_renderHeader}
+      ListEmptyComponent={
+        isLoading
+          ? (
+            useSkeleton
+              ? <Skeleton layout='list' isLoading={isLoading} />
+              : <Loading fullScreen />)
+          : <NoData text={noDataText} />
+      }
+      ListHeaderComponent={listData.length && _renderHeader}
       ListFooterComponent={_renderFooter}
       renderItem={_renderItem}
       initialNumToRender={limit}

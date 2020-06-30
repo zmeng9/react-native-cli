@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { loadAuthToken, removeAuthToken } from './storage'
 import { logger } from './logger'
-import { isEmptyObj } from './helper'
+import { isEmptyObj } from './valid'
 
 
 const localBaseURL = `http://localhost:8000`
-const apiURL = `https://api.tuscanyyy.top`
+const apiURL = `http://git.curdata.cn:9002/api`
 
 const request = axios.create({
   baseURL: apiURL,
@@ -40,11 +40,11 @@ request.interceptors.response.use((res: any) => {
   const { url } = config
   const method = config.method.toUpperCase()
 
-  const { code, msg, error } = data
+  const { code, message, error } = data
 
   // Status is 200
-  if (!code && !error)
-    logger.warn(`--> ${method} ${url} Opt fail: `, msg || data)
+  if (code && !error)
+    logger.warn(`--> ${method} ${url} Opt fail: `, message || data)
   else
     logger.success(`--> ${method} ${url} Result: `, data.data || data)
 
@@ -73,5 +73,26 @@ request.interceptors.response.use((res: any) => {
 
   return Promise.reject(error)
 })
+
+
+/* 
+ * socket request
+ */
+
+
+export const reqSocket = (
+  cmd: string,
+  data?: any,
+) => {
+  if (data !== undefined) {
+    return {
+      command: cmd,
+      req_data: data,
+    }
+  }
+
+  return { command: cmd }
+}
+
 
 export default request

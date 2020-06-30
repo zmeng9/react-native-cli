@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, StatusBar } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { QRscanner, QRreader } from 'react-native-qr-scanner'
 import { useToast, useImagePicker, useNormalize } from '@/hooks'
@@ -27,6 +27,7 @@ export const QRCodeScanner: React.FC<IQRCodeScannerProps> = observer(({
     try {
       onSuccess(e)
     } catch (err) {
+      console.log(`QRCodeRead err`, err)
       toast(`请扫描正确的二维码`)
     }
   }
@@ -68,8 +69,8 @@ export const QRCodeScanner: React.FC<IQRCodeScannerProps> = observer(({
 
   return (
     <View style={styles.root}>
+      <StatusBar backgroundColor='transparent' />
       <QRscanner
-        isRepeatScan
         onRead={onRead}
         maskColor='transparent'
         renderBottomView={renderFooter}

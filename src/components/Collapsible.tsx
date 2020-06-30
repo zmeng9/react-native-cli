@@ -13,7 +13,7 @@ export const Collapsible: React.SFC<ICollapsibleProps> = observer(({
   ...collapsibleProps
 }) => {
   return (
-    <RnCollapsible {...collapsibleProps}>
+    <RnCollapsible enablePointerEvents {...collapsibleProps}>
       {children}
     </RnCollapsible>
   )

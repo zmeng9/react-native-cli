@@ -1,31 +1,5 @@
-export const isEmptyObj = (obj: Object) => {
-  for (let prop in obj) {
-    if (obj.hasOwnProperty(prop))
-      return false
-  }
-  
-  return true
-}
+import { get, uniqueId } from 'lodash'
 
-export const isEmptyStr = (str: string) => {
-  return str.trim() === ``
-}
-
-export const isZero = (num: number) => {
-  return num === 0
-}
-
-export const isStartWithZero = (str: string) => {
-  return str.startsWith(`0`)
-}
-
-export const isUpper = (code: string) => {
-  return /[A-Z]/.test(code)
-}
-
-export const isLower = (code: string) => {
-  return /[a-z]/.test(code)
-}
 
 export const unique = (array: Array<any>) => {
   let cleanArray: Array<any> = []
@@ -71,8 +45,7 @@ export const debounce = (
       if (callNow) {
         func.apply(context, args as any)
       }
-    }
-    else {
+    } else {
       timeout = setTimeout(function () {
         func.apply(context, args as any)
       }, wait)
@@ -95,4 +68,25 @@ export const joinByComma = (str: string, anotherStr: string) => {
 
 export const findById = (array: Array<any>, id: number) => {
   return array.find((item: any) => item.id === id)
+}
+
+export const chunkString = (str: string, length: number) => {
+  return str.match(new RegExp('.{1,' + length + '}', 'g'))
+}
+
+export const genRandomNum = (max: number) => {
+  return Math.floor(Math.random() * max)
+}
+
+export const randomStr = (len: number = 7) => {
+  return Math.random().toString(36).substring(len)
+}
+
+export const randomItemFromArray = (array: Array<any>) => {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
+export {
+  get,
+  uniqueId,
 }

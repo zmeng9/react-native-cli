@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useTheme } from '@/hooks'
-import { IStyle, IChildren, IStartShouldSetResponderCapture, IPress } from './common'
+import { useTheme, usePlatform } from '@/hooks'
+import { IStyle, IChildren, IStartShouldSetResponderCapture, IPress, IBorder } from './common'
 import { ColorfulText } from './ColorfulText'
 
 
-export interface ICardProps extends IStyle, IChildren, IStartShouldSetResponderCapture, IPress {
+export interface ICardProps extends IStyle, IChildren,
+  IStartShouldSetResponderCapture, IPress, IBorder {
   cardHeaderStyle?: IStyle['style']
   cardBodyrStyle?: IStyle['style']
   cardFooterStyle?: IStyle['style']
@@ -15,16 +16,11 @@ export interface ICardProps extends IStyle, IChildren, IStartShouldSetResponderC
   alwaysWhite?: boolean
   title?: string
   margin?: number
-  border?: boolean
 }
 
-export interface ICardHeaderProps extends IStyle, IChildren {
-  border?: boolean
-}
+export interface ICardHeaderProps extends IStyle, IChildren, IBorder { }
 
-export interface ICardFooterProps extends IStyle, IChildren {
-  border?: boolean
-}
+export interface ICardFooterProps extends IStyle, IChildren, IBorder { }
 
 export const Card: React.SFC<ICardProps> = observer(({
   style,
@@ -42,6 +38,7 @@ export const Card: React.SFC<ICardProps> = observer(({
   onPress,
   onLongPress,
 }) => {
+  const { isAndroid } = usePlatform()
   const { paper, shadow, divider } = useTheme()
 
   const onStartShouldSetResponderCapture = useCallback(() => {
@@ -62,13 +59,14 @@ export const Card: React.SFC<ICardProps> = observer(({
             backgroundColor: alwaysWhite ? `#fff` : paper,
             borderWidth: border ? 0.7 : 0,
             borderColor: divider,
+            elevation: isAndroid ? 2 : undefined,
             ...shadow,
           },
           style,
         ]}
         onStartShouldSetResponderCapture={onStartShouldSetResponderCapture}
       >
-        {title && <ColorfulText text={title} bold fontSize={18} style={{ margin: 15 }} />}
+        {!!title && <ColorfulText text={title} bold fontSize={18} style={{ margin: 15 }} />}
 
         {
           cardHeader && (
@@ -111,7 +109,12 @@ export const CardHeader: React.SFC<ICardHeaderProps> = observer(({
         borderLeftWidth: border ? 0.7 : 0,
         borderRightWidth: border ? 0.7 : 0,
         borderColor: divider,
+        marginBottom: -0.7,
         ...shadow,
+        shadowOffset: {
+          width: 0,
+          height: -10,
+        },
       },
       style,
     ]}>
@@ -148,6 +151,7 @@ export const CardFooter: React.SFC<ICardFooterProps> = observer(({
 const styles = StyleSheet.create({
   root: {
     borderRadius: 15,
+    justifyContent: `space-between`,
   },
   cardHeader: {
     flexDirection: `row`,

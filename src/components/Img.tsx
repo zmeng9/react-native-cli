@@ -2,13 +2,17 @@ import React from 'react'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import FastImage from 'react-native-fast-image'
+import { useWindowSize } from '@/hooks'
 import { IStyle } from './common'
 
+
+const { width } = useWindowSize()
+
 export interface IImgProps extends IStyle {
-  width: number
-  height: number
-  borderRadius?: number
   uri: string
+  width?: number
+  height?: number
+  borderRadius?: number
   resizeMode?: `contain` | `cover` | `stretch` | `center`
   onPress?: () => void
 }
@@ -38,6 +42,6 @@ export const Img: React.SFC<IImgProps> = observer(({
 
 const styles = StyleSheet.create({
   root: {
-    margin: 5,
+    width,
   },
 })

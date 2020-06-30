@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useIsFirstRender } from './isFirstRender'
 import { useToast } from './toast'
-import _ from 'lodash'
 
 
 /* 
@@ -9,54 +8,71 @@ import _ from 'lodash'
  */
 
 export interface IService {
-  store: any,
-  service: (...params: any) => any
-  params?: Array<any>
+  store: any
+  service: () => Promise<any>
   isFetch?: boolean
+  isSelfLoadingInitVal?: boolean
   immedate?: boolean
-  setDataNull?: boolean
+  setInitialResult?: boolean
   deps?: Array<any>
-  beforeHandle?: () => void
+  beforeFetch?: () => void
+}
+
+export interface IServiceResult {
+  code: 0 | 1
+  msg: string | null
+  data: any
+  error: any
+}
+
+
+export interface IServiceReturnType {
+  isSelfLoading: boolean
+  result: IServiceResult | null
 }
 
 export const useService = ({
   store,
   service,
-  params = [],
   isFetch = true,
+  isSelfLoadingInitVal = true,
   immedate = true,
-  setDataNull = false,
+  setInitialResult = false,
   deps = [],
-  beforeHandle,
-}: IService): any => {
+  beforeFetch,
+}: IService): IServiceReturnType => {
   const toast = useToast()
   const isFirstRender = useIsFirstRender()
-  const [data, setData] = useState(null)
-  const { error, setIsLoading, setError, setIsSubmit } = store
+  const [isSelfLoading, setIsSelfLoading] = useState(isSelfLoadingInitVal)
+  const [result, setResult] = useState(null)
+  const { setIsLoading, setError, setIsSubmit } = store
 
   const isForm = typeof setIsSubmit === `function`
 
   const fetchData = async () => {
     setIsLoading(true)
+    setIsSelfLoading(true)
 
     try {
-      const result = await service(...params)
+      const result = await service()
+
       if (result) {
-        const { code, data = null, msg } = result.data
+        const { code, message, error } = result.data
 
-        if (code) {
-          setData(data)
+        setResult(result.data)
 
-          if (error)
+        if (!code) {
+          if (store.error)
             setError(null)
+        } else if (code && !error) {
+          toast(message)
         }
-        else if (!code && !error)
-          toast(msg)
 
         setIsLoading(false)
-      }
-      else
+        setIsSelfLoading(false)
+      } else {
         toast(`内部服务器错误`)
+      }
     } catch (error) {
       setError(error.message)
 
@@ -67,27 +83,35 @@ export const useService = ({
           return toast(`发生意外性错误`)
       }
     } finally {
-      if (isForm)
+      if (isForm) {
+        setIsLoading(false)
+        setIsSelfLoading(false)
         setIsSubmit(false)
+      }
     }
   }
 
   useEffect(() => {
-    if (setDataNull)
-      setData(null)
+    if (setInitialResult)
+      setResult(null)
 
     if (immedate || !isFirstRender) {
 
       // Do something before 
-      if (beforeHandle)
-        beforeHandle()
+      if (beforeFetch)
+        beforeFetch()
 
       if (isFetch)
         fetchData()
     }
 
-
+    return () => {
+      setResult(null)
+    }
   }, deps)
 
-  return data
+  return {
+    isSelfLoading,
+    result,
+  }
 }

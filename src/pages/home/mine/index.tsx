@@ -1,15 +1,14 @@
 import React from 'react'
 import { View } from 'react-native'
+import { observer } from 'mobx-react-lite'
 import { Navigator, Screen, Icon } from '@/components'
 import { goToSetting } from '@/utils'
 import { Mine } from './mine'
-import { Login } from './login'
-import { Reg } from './reg'
 import { Setting } from './setting'
 import { UserInfo } from './userInfo'
 
 
-export const MineNavigator: React.SFC = () => {
+export const MineNavigator: React.SFC = observer(() => {
   return (
     <Navigator>
       <Screen
@@ -23,20 +22,6 @@ export const MineNavigator: React.SFC = () => {
               <Icon name='ios-cog' onPress={goToSetting} />
             </View>
           ),
-        }}
-      />
-      <Screen
-        name='Login'
-        component={Login}
-        options={{
-          headerTitle: `登陆`
-        }}
-      />
-      <Screen
-        name='Reg'
-        component={Reg}
-        options={{
-          headerTitle: `注册`
         }}
       />
       <Screen
@@ -55,4 +40,4 @@ export const MineNavigator: React.SFC = () => {
       />
     </Navigator>
   )
-}
+})

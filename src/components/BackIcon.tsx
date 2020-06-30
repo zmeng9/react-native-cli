@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { goBack } from '@/utils'
 import { Icon } from './Icon'
+import { IPress } from './common'
 
-export interface IBackIcon {
+export interface IBackIcon extends IPress {
   alwaysWhite?: boolean
   type?: `right` | `down` | `close`  
   size?: number
@@ -14,6 +15,7 @@ export const BackIcon: React.SFC<IBackIcon> = observer(({
   alwaysWhite,
   type = `right`,
   size,
+  onPress,
 }) => {
   const iconName = (() => {
     switch (type) {
@@ -31,7 +33,7 @@ export const BackIcon: React.SFC<IBackIcon> = observer(({
   return (
     <Icon
       name={iconName}
-      onPress={goBack}
+      onPress={onPress || goBack}
       alwaysWhite={alwaysWhite}
       size={size}
     />

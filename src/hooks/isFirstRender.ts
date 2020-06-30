@@ -1,5 +1,4 @@
-import { useRef } from "react"
-import { useEffect } from './effect'
+import { useEffect, useRef } from 'react'
 
 
 /* 

@@ -2,15 +2,15 @@ import React, { useRef, useImperativeHandle, useCallback } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useWindowSize } from '@/hooks'
+import { IRenderItem, IItemWidth } from './common'
+
 
 const { width } = useWindowSize()
 
-export interface IHorizontalFlatListProps {
+export interface IHorizontalFlatListProps extends IItemWidth, IRenderItem {
   data: Array<any>
-  itemWidth?: number
   scrollEnabled?: boolean
   contentContainerStyle?: Object
-  renderItem: ({ item }: any) => React.ReactElement | null
   onScrollBeginDrag?: () => void
   setCurrentPageNum?: (currentPageNum: number) => void
 }

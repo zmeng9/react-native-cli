@@ -1,6 +1,10 @@
+import Toast from 'react-native-root-toast'
+
+ 
 /*
  * Encapsulation of the colorful "console.log", usage:
 */
+
 
 export const consoleTheme = {
   info: `color: darkcyan; font-style: italic;`,
@@ -11,7 +15,7 @@ export const consoleTheme = {
 }
 
 const log = (themeType: keyof typeof consoleTheme, msg?: string, data?: any) => {
-  if (data)
+  if (data !== undefined)
     console.log(`%c${msg}`, consoleTheme[themeType], data)
   else
     console.log(`%c${msg}`, consoleTheme[themeType])
@@ -33,9 +37,22 @@ const error = (msg?: string, data?: any) => {
   return log(`error`, msg, data)
 }
 
+const toast = (msg: any, type?: `error` | `fail`) => {
+  return Toast.show(JSON.stringify(msg), {
+    duration: Toast.durations.LONG,
+    position: 100,
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+    backgroundColor: type === `fail` ? `#ff9800` : `#f44336`
+  })
+}
+
 export const logger = {
   info,
   success,
   warn,
   error,
+  toast,
 }

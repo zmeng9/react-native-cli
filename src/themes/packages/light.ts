@@ -40,7 +40,7 @@ export const light: IPalette = {
       primary: `#fff`,
       success: `#fff`,
       warning: `#ff9800`,
-      error: `#f44336`,
+      error: `#fff`,
       disabled: `#777`
     },
   },

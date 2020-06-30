@@ -16,7 +16,7 @@ export const useToast = () => {
     shadow: true,
     animation: true,
     hideOnPress: true,
-    delay: 700,
+    delay: 0,
     backgroundColor: text.info,
     textColor: paper,
   })

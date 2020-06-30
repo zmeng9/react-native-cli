@@ -2,7 +2,8 @@ import React from 'react'
 import { View, StyleSheet, TextInput, KeyboardTypeOptions } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { Icon } from './Icon'
-import { useTheme } from '@/hooks'
+import { Loading } from './Loading'
+import { useTheme, useNormalize } from '@/hooks'
 import { ITextStyle } from './common'
 
 export interface IInputProps {
@@ -10,38 +11,49 @@ export interface IInputProps {
   value: string
   type?: `contain` | `outline` | `underline`
   size?: `large` | `small`
-  leftIcon?: React.ReactNode
   leftIconName?: string
+  rightIconName?: string
+  leftComponent?: React.ReactElement
+  rightComponent?: React.ReactElement
+  isLoading?: boolean
   placeholder?: string
   editable?: boolean
   maxLength?: number
   secureTextEntry?: boolean
   keyboardType?: KeyboardTypeOptions
   autoFocus?: boolean
+  autoCompleteType?: `off` | `username` | `tel`
   clearButtonMode?: `never` | `while-editing`
   returnKeyType?: `done` | `search` | `go`
-  onChangeText: (text: string) => void
+  onChangeText?: (text: string) => void
   onSubmitEditing?: () => void
+  onPressRightIcon?: (...args: any) => void
 }
 
 export const Input: React.SFC<IInputProps> = observer(({
   style,
   value,
   type = `outline`,
-  size = `small`,
-  leftIcon,
+  size = `large`,
   leftIconName,
+  rightIconName,
+  leftComponent,
+  rightComponent,
+  isLoading,
   placeholder = ``,
   editable = true,
   maxLength,
   secureTextEntry = false,
   keyboardType,
   autoFocus = false,
+  autoCompleteType = `off`,
   clearButtonMode = `never`,
   returnKeyType = `done`,
   onChangeText,
   onSubmitEditing,
+  onPressRightIcon,
 }) => {
+  const { normalizeSize } = useNormalize()
   const { input, divider, text } = useTheme()
   const isSmall = size === `small`
 
@@ -59,21 +71,18 @@ export const Input: React.SFC<IInputProps> = observer(({
 
   return (
     <View style={styles.root}>
-      {
-        (leftIcon || leftIconName) && (
-          <View style={styles.leftIconConatiner}>
-            {leftIcon ? leftIcon : <Icon name={leftIconName as string} size={isSmall ? 24 : 30} />}
-          </View>
-        )
-      }
+      {leftComponent && <View style={styles.leftComponent}>{leftComponent}</View>}
+      {leftIconName && <Icon name={leftIconName} style={styles.leftComponent} size={isSmall ? 24 : 30} />}
       <TextInput
         style={[
           styles[size],
           {
             borderColor: divider,
             backgroundColor: input[type],
-            paddingLeft: (leftIcon || leftIconName) ? 40 : 10,
+            paddingLeft: (leftComponent || leftIconName) ? 40 : 10,
+            paddingRight: (rightComponent || rightIconName) ? 40 : 10,
             color: text.info,
+            fontSize: isSmall ? normalizeSize(16) : normalizeSize(18),
           },
           inputStyle,
           style,
@@ -85,12 +94,23 @@ export const Input: React.SFC<IInputProps> = observer(({
         keyboardType={keyboardType}
         onSubmitEditing={onSubmitEditing}
         autoFocus={autoFocus}
+        autoCompleteType={autoCompleteType}
         placeholder={placeholder}
         clearButtonMode={clearButtonMode}
         enablesReturnKeyAutomatically
         secureTextEntry={secureTextEntry}
         returnKeyType={returnKeyType}
       />
+      {(!isLoading && rightIconName) && (
+        <Icon
+          name={rightIconName}
+          style={styles.rightComponent}
+          onPress={onPressRightIcon}
+          size={isSmall ? 24 : 30}
+        />
+      )}
+      {rightComponent && <View style={styles.rightComponent}>{rightComponent}</View>}
+      {isLoading && <Loading style={styles.rightComponent} />}
     </View>
   )
 })
@@ -104,20 +124,22 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     marginVertical: 10,
-    fontSize: 18,
     borderRadius: 15,
   },
   small: {
     height: 35,
     padding: 8,
-    marginHorizontal: 10,
     marginVertical: 5,
-    fontSize: 16,
     borderRadius: 8,
   },
-  leftIconConatiner: {
+  leftComponent: {
     position: `absolute`,
-    left: 10,
+    left: 2,
+    zIndex: 1,
+  },
+  rightComponent: {
+    position: `absolute`,
+    right: 2,
     zIndex: 1,
   },
 })

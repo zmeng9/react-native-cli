@@ -1,9 +1,14 @@
-export const FormState = {
-  isSubmit: false,
-}
+import { types } from 'mobx-state-tree'
 
-export const FormActions = (self: any) => ({
-  setIsSubmit(isSubmit: boolean) {
-    self.isSubmit = isSubmit
-  }
-})
+
+export const Form = () => {
+  return types
+    .model({
+      isSubmit: false,
+    })
+    .actions(self => ({
+      setIsSubmit(isSubmit: boolean) {
+        self.isSubmit = isSubmit
+      }
+    }))
+}

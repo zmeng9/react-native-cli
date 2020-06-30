@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react'
-import { useEffect } from './effect'
+import { useFocusEffect } from './focusEffect'
 
 /* 
  * The memoize useCallback
@@ -11,7 +11,7 @@ export const useEcb = (fn: (...args: any) => void, deps: Array<any>) => {
     throw new Error('Cannot call an event handler while rendering.')
   })
 
-  useEffect(() => {
+  useFocusEffect(() => {
     ref.current = fn
   }, [fn, ...deps])
 

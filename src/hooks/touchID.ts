@@ -1,7 +1,6 @@
 import TouchID from 'react-native-touch-id'
 import { useTheme } from './theme'
 import { useToast } from './toast'
-import { useVibration } from './vibration'
 
 
 /* 
@@ -9,14 +8,13 @@ import { useVibration } from './vibration'
  */
 
 export interface IVerifyTouchId {
-  type?: `pay` | `login`
+  type?: `pay` | `login` | `unbundle`
   onSuccess: () => void
   onFail: () => void
 }
 
 export const useTouchId = () => {
   const toast = useToast()
-  const { vibrate } = useVibration()
   const { info, error } = useTheme()
 
   const verifyTouchId = async ({
@@ -30,6 +28,8 @@ export const useTouchId = () => {
           return `支付`
         case `login`:
           return `登陆`
+        case `unbundle`:
+          return `解绑`
         default:
           return `支付`
       }
@@ -44,7 +44,7 @@ export const useTouchId = () => {
       sensorErrorDescription: `验证失败`,
       cancelText: `取消`,
       fallbackLabel: `使用密码${text}`,
-      unifiedErrors: false,
+      unifiedErrors: true,
       passcodeFallback: false,
     }
 
@@ -54,8 +54,6 @@ export const useTouchId = () => {
       switch (code) {
         case `AUTHENTICATION_FAILED`:
           return toast(`验证错误，请重试`)
-        case `USER_CANCELED`:
-          return onFail()
         default:
           return onFail()
       }

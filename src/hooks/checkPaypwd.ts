@@ -1,6 +1,6 @@
 import { checkPaypwd } from '@/services'
 import { useService } from './service'
-import { useEffect } from './effect'
+import { useFocusEffect } from './focusEffect'
 
 
 /* 
@@ -18,20 +18,19 @@ export const useCheckPaypwd = ({
 }: ICheckPaypwd) => {
   const { paypwd } = store
 
-  const data = useService({
+  const { result } = useService({
     store,
-    service: checkPaypwd,
-    params: [paypwd],
+    service: () => checkPaypwd(paypwd),
     deps: [paypwd],
     immedate: false,
     isFetch: paypwd.length === 6,
   })
 
-  useEffect(() => {
-    if (data) {
-      const { sign } = data
+  useFocusEffect(() => {
+    if (result && result.data) {
+      const { sign } = result.data
       if (sign)
         onSuccess()
     }
-  }, [data])
+  }, [result])
 }

@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { splitByComma, joinByComma, unique } from './helper'
+import { logger } from './logger'
+
 
 const tokenKeyName = `authToken`
 const searchHistoryKeyName = `searchHistory`
-const localBookrackKeyName = `localBookrack`
 const searchHistoryLimit = 8
 
 /* 
@@ -11,18 +12,32 @@ const searchHistoryLimit = 8
  */
 
 export const loadAuthToken = async () => {
-  return await AsyncStorage.getItem(tokenKeyName)
+  try {
+    const authToken = await AsyncStorage.getItem(tokenKeyName)
+    return authToken
+  } catch (err) {
+    logger.error(`load token error`, err)
+    return null
+  }
 }
 
 export const saveAuthToken = async (token: string) => {
   if (!token && token.trim() === ``)
     return
 
-  await AsyncStorage.setItem(tokenKeyName, token)
+  try {
+    await AsyncStorage.setItem(tokenKeyName, token)
+  } catch (err) {
+    logger.error(`save token error`, err)
+  }
 }
 
 export const removeAuthToken = async () => {
-  await AsyncStorage.removeItem(tokenKeyName)
+  try {
+    await AsyncStorage.removeItem(tokenKeyName)
+  } catch (err) {
+    logger.error(`remove token error`, err)
+  }
 }
 
 /* 
@@ -54,37 +69,5 @@ export const saveSearchHistory = async (searchHistory: string) => {
 
 export const removeSearchHistory = async () => {
   await AsyncStorage.removeItem(searchHistoryKeyName)
-}
-
-
-/* 
- * Local bookrack
- */
-
-export const loadLocalBookrack = async () => {
-  const localBookrack = await AsyncStorage.getItem(localBookrackKeyName)
-
-  if (localBookrack) {
-    const splitedLocalBookrack = splitByComma(localBookrack)
-    return unique(splitedLocalBookrack)
-  }
-
-  return null
-}
-
-export const saveLocalBookrack = async (localBookrack: string) => {
-  if (!localBookrack && localBookrack.trim() === ``)
-    return
-
-  const currentLocalBookrack = await AsyncStorage.getItem(localBookrackKeyName)
-  const newLocalBookrack = currentLocalBookrack
-    ? joinByComma(localBookrack, currentLocalBookrack)
-    : localBookrack
-
-  await AsyncStorage.setItem(localBookrackKeyName, newLocalBookrack)
-}
-
-export const removeLocalBookrack = async () => {
-  await AsyncStorage.removeItem(localBookrackKeyName)
 }
 

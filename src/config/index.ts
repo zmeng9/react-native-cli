@@ -1,0 +1,7 @@
+/* 
+ * config
+ */
+
+export const Config = {
+  
+}

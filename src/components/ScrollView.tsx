@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, ScrollView as RnScrollView } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import { useSafeArea } from 'react-native-safe-area-context'
+import { useSafeArea } from '@/hooks'
 import { IChildren, IStyle } from './common'
 
 

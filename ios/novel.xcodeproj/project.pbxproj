@@ -19,6 +19,7 @@
 		C41CB0E12459B8BF008FFFE3 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0E02459B8BF008FFFE3 /* BroadcastSetupViewController.swift */; };
 		C41CB0ED2459B8F7008FFFE3 /* novel_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */; };
 		C49371292459FD8A002AFE50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49371282459FD8A002AFE50 /* Launch Screen.storyboard */; };
+		C4963F4624AB3EB7008D35CF /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963F4524AB3EB7008D35CF /* File.swift */; };
 		C4ACE71C2489DF24008AE77C /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4ACE71B2489DF24008AE77C /* AMapFoundationKit.framework */; };
 		C4ACE71E2489DF2D008AE77C /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4ACE71D2489DF2D008AE77C /* AMapLocationKit.framework */; };
 		E9A30F68EAB2D1CEFADD9356 /* libPods-novelTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32784ACCF1F2A1C02876BB5C /* libPods-novelTests.a */; };
@@ -66,6 +67,8 @@
 		C41CB0EC2459B8F7008FFFE3 /* novel_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = novel_tvOSTests.swift; sourceTree = "<group>"; };
 		C41CB0EE2459B8F7008FFFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49371282459FD8A002AFE50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C4963F4424AB3EB7008D35CF /* novel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "novel-Bridging-Header.h"; sourceTree = "<group>"; };
+		C4963F4524AB3EB7008D35CF /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		C4ACE71B2489DF24008AE77C /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
 		C4ACE71D2489DF2D008AE77C /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -139,6 +142,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				C49371282459FD8A002AFE50 /* Launch Screen.storyboard */,
+				C4963F4524AB3EB7008D35CF /* File.swift */,
+				C4963F4424AB3EB7008D35CF /* novel-Bridging-Header.h */,
 			);
 			name = novel;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = M769C3FTS2;
+						LastSwiftMigration = 1150;
 					};
 					C41CB0D92459B8BF008FFFE3 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -576,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				C4963F4624AB3EB7008D35CF /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,6 +618,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 877EE2E82CF9BEA3FDB24DFE /* Pods-novelTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = M769C3FTS2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -635,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 065761DF9E01F5E03CFB80BB /* Pods-novelTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = M769C3FTS2;
@@ -657,6 +666,7 @@
 			baseConfigurationReference = 01A5273E36F665D2AA44DB57 /* Pods-novel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M769C3FTS2;
@@ -674,6 +684,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = novel;
 				PRODUCT_NAME = "图书馆";
+				SWIFT_OBJC_BRIDGING_HEADER = "novel-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -683,6 +696,7 @@
 			baseConfigurationReference = 436818D02D338B1F38177C3C /* Pods-novel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M769C3FTS2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -699,6 +713,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = novel;
 				PRODUCT_NAME = "图书馆";
+				SWIFT_OBJC_BRIDGING_HEADER = "novel-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

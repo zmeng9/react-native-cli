@@ -8,17 +8,23 @@ import { useService } from './service'
  * Use get and set userinfo hook 
  */
 
-export const useUserInfo = () => {
-  const { mineStore } = useStores()
-  const { setUserInfo } =  mineStore
+export const useUserInfo = (): {
+  isSelfLoading: boolean
+} => {
+  const { globalStore } = useStores()
+  const { setUserInfo } = globalStore
 
-  const data = useService({
-    store: mineStore,
+  const { isSelfLoading, result } = useService({
+    store: globalStore,
     service: getUserInfo,
   })
 
   useEffect(() => {
-    if (data)
-      setUserInfo(data)
-  }, [data])
+    if (result && result.data)
+      setUserInfo(result.data)
+  }, [result])
+
+  return {
+    isSelfLoading,
+  }
 }

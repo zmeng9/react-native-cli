@@ -1,9 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { useSafeArea } from 'react-native-safe-area-context'
 import { observer } from 'mobx-react-lite'
 import { PasswordModal } from 'react-native-pay-password'
-import { useWindowSize } from '@/hooks'
+import { useWindowSize, useSafeArea } from '@/hooks'
 
 
 const { width } = useWindowSize()

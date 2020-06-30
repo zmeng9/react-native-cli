@@ -1,13 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { IBaseColorType } from '@/themes'
 import { useTheme, useNormalize } from '@/hooks'
+import { Loading } from './Loading'
 import { IStyle, ITextStyle, IPress } from './common'
 
 
 export interface IBtnProps extends IStyle, ITextStyle, IPress {
   text: string
+  margin?: boolean
   color?: keyof IBaseColorType
   ghost?: boolean
   size?: `large` | `medium` | `small`
@@ -20,6 +22,7 @@ export const Btn: React.SFC<IBtnProps> = observer(({
   style,
   textStyle,
   text,
+  margin = false,
   color = `info`,
   ghost,
   size = `medium`,
@@ -43,39 +46,40 @@ export const Btn: React.SFC<IBtnProps> = observer(({
   })()
 
   return (
-    <TouchableOpacity
-      style={[
-        styles[size],
+    <View style={{ marginHorizontal: margin ? 5 : 0 }}>
+      <TouchableOpacity
+        style={[
+          styles[size],
+          {
+            width: fullWidth ? `100%` : `auto`,
+          },
+          ghost ? {
+            borderColor: info,
+            borderWidth: 0.7,
+          } : {
+              backgroundColor: (isLoading || disabled) ? btn.bg.disabled : btn.bg[color],
+            },
+          style,
+        ]}
+        disabled={isLoading || disabled}
+        onPress={onPress}
+      >
         {
-          width: fullWidth ? `100%` : `auto`,
-          
-        },
-        ghost ? {
-          borderColor: info,
-          borderWidth: 0.7,
-        } : {
-          backgroundColor: disabled ? btn.bg.disabled : btn.bg[color],
-        },
-        style,
-      ]}
-      disabled={disabled}
-      onPress={onPress}
-    >
-      {
-        isLoading
-          ? <ActivityIndicator />
-          : (
-            <Text
-              style={[{
-                fontSize: normalizeSize(fontSize), 
-                color: disabled ? btn.text.disabled : btn.text[color],
-                textAlign: `center`,
-              }, textStyle]}>
-              {text}
-            </Text>
-          )
-      }
-    </TouchableOpacity>
+          isLoading
+            ? <Loading />
+            : (
+              <Text
+                style={[{
+                  fontSize: normalizeSize(fontSize),
+                  color: disabled ? btn.text.disabled : btn.text[color],
+                  textAlign: `center`,
+                }, textStyle]}>
+                {text}
+              </Text>
+            )
+        }
+      </TouchableOpacity>
+    </View>
   )
 })
 
@@ -99,12 +103,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   small: {
-    height: 25,
+    height: 20,
     justifyContent: `center`,
     alignSelf: `center`,
     margin: 5,
     borderRadius: 15,
-    // paddingVertical: 2,
+    paddingVertical: 2,
     paddingHorizontal: 8,
   },
 })

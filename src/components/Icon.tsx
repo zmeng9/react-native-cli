@@ -1,6 +1,6 @@
 import React from 'react'
 import VIcon from 'react-native-vector-icons/Ionicons'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useTheme, useNormalize } from '@/hooks'
 import { IBaseColorType } from '@/themes'
 import { ColorfulText } from './ColorfulText'
@@ -8,9 +8,11 @@ import { IStyle, IPress } from './common'
 
 
 export interface IIconProps extends IStyle, IPress {
+  iconStyle?: IStyle['style']
   name: string
   bottomText?: string
   size?: number
+  iconBg?: boolean
   alwaysWhite?: boolean
   alwaysBlack?: boolean
   color?: keyof IBaseColorType
@@ -18,9 +20,11 @@ export interface IIconProps extends IStyle, IPress {
 
 export const Icon: React.SFC<IIconProps> = ({
   style,
+  iconStyle,
   name,
   bottomText,
   size = 28,
+  iconBg,
   alwaysWhite,
   alwaysBlack,
   color = `info`,
@@ -40,7 +44,9 @@ export const Icon: React.SFC<IIconProps> = ({
 
   return (
     <TouchableOpacity style={[styles.root, style]} onPress={onPress} disabled={!(typeof onPress === `function`)}>
-      <VIcon name={name} size={normalizeSize(size)} color={iconColor} />
+      <View style={[iconBg ? [styles.iconBg, { backgroundColor: theme.paper }] : {}, iconStyle]}>
+        <VIcon name={name} size={normalizeSize(size)} color={iconColor} />
+      </View>
       {bottomText && <ColorfulText text={bottomText} />}
     </TouchableOpacity>
   )
@@ -51,5 +57,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: `center`,
     justifyContent: `center`,
+  },
+  iconBg: {
+    justifyContent: `center`,
+    alignItems: `center`,
+    width: 55,
+    height: 55,
+    borderRadius: 15,
+    marginBottom: 5,
   },
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { observer } from 'mobx-react-lite'
 import { Icon } from '@/components'
 import { useTheme } from '@/hooks'
 import { MineNavigator as Mine } from './mine'
@@ -8,8 +9,8 @@ import { RecommendNavigator as Recommend } from './recommend'
 
 const Tab = createBottomTabNavigator()
 
-export const HomeTab: React.SFC = () => {
-  const { paper, divider } = useTheme()
+export const HomeTab: React.SFC = observer(() => {
+  const { paper, divider, info } = useTheme()
 
   return (
     <Tab.Navigator
@@ -19,7 +20,7 @@ export const HomeTab: React.SFC = () => {
           backgroundColor: paper,
           borderTopColor: divider,
         },
-        activeTintColor: `#333`,
+        activeTintColor: info,
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
@@ -52,4 +53,4 @@ export const HomeTab: React.SFC = () => {
       />
     </Tab.Navigator>
   )
-}
+})

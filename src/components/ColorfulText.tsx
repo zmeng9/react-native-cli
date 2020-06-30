@@ -19,7 +19,7 @@ export interface IColorfulTextProps extends IPress {
   numberOfLines?: number
   margin?: number
   fontSize?: number
-  textAlign?: `auto` | `center`
+  textAlign?: `auto` | `left` | `center` | `right`
   isLoading?: boolean
 }
 
