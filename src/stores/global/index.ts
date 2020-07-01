@@ -12,7 +12,12 @@ const Location = types.model({
 })
 
 
-export const UserInfo = types.model({})
+export const UserInfo = types.model({
+  username: types.string,
+  nickname: types.string,
+  mobile: types.string,
+  avatar: types.string,
+})
 
 export const Global = types.compose(
   Service(false),
@@ -22,7 +27,12 @@ export const Global = types.compose(
       headerHeight: 0,
       location: types.maybeNull(Location),
       authToken: types.maybeNull(types.string),
-      userInfo: types.optional(UserInfo, {}),
+      userInfo: types.optional(UserInfo, {
+        username: ``,
+        nickname: ``,
+        mobile: ``,
+        avatar: ``,
+      }),
     })
     .actions(self => ({
       setIsLogout(isLogout: boolean) {

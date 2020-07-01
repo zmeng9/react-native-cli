@@ -16,12 +16,7 @@ export const MineNavigator: React.SFC = observer(() => {
         component={Mine}
         options={{
           headerTitle: `我的`,
-          headerRight: () => (
-            <View style={{ flexDirection: `row`, alignItems: `center` }}>
-              <Icon name='ios-text' onPress={goToSetting} style={{ paddingHorizontal: 5 }} />
-              <Icon name='ios-cog' onPress={goToSetting} />
-            </View>
-          ),
+          headerRight: () => <Icon name='ios-cog' onPress={goToSetting} />,
         }}
       />
       <Screen

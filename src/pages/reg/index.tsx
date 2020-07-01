@@ -31,7 +31,7 @@ export const Reg: React.FC = observer(() => {
 
   return (
     <KeyboardAvoidingScrollView style={styles.root}>
-      <View style={{ marginTop: height / 5 }}>
+      <View style={{ marginTop: height / 4 }}>
         <Input
           placeholder='用户米'
           maxLength={18}

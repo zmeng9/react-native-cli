@@ -47,7 +47,7 @@ const StackNavigator: React.SFC = () => {
         name='Reg'
         component={Reg}
         options={{
-          headerShown: false,
+          headerTitle: `注册`,
         }}
       />
     </Navigator>

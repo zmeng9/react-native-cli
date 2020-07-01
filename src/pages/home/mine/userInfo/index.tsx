@@ -1,30 +1,33 @@
 import React, { useCallback } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import { useStores } from '@/hooks'
-import { removeAuthToken, goBack } from '@/utils'
-import { ListItem } from '@/components'
+import { ListItem, Avatar, ScrollView } from '@/components'
 
 
 export const UserInfo: React.FC = observer(() => {
-  const { mineStore } = useStores()
+  const { globalStore } = useStores()
+  const { userInfo } = globalStore
+  const { username, nickname, avatar, mobile } = userInfo
 
-  const logout = useCallback(async () => {
-    await removeAuthToken()
-    
-    mineStore.reset()
-
-    goBack()
-  }, [])
+  const renderAvatar = useCallback(() => (
+    <Avatar uri={avatar} />
+  ), [])
 
   return (
-    <View style={styles.root}>
-      <ListItem type='center' text='退出登陆' colorfulTextType='error' onPress={logout} />
-    </View>
+    <ScrollView style={styles.root}>
+      <ListItem leftComponent={renderAvatar()} rightText={username} style={styles.avatarListItem} />
+      <ListItem leftText='昵称' rightText={nickname} placeHolder isNavigator />
+      <ListItem leftText='手机号' rightText={mobile} placeHolder isNavigator />
+    </ScrollView>
   )
 })
 
 const styles = StyleSheet.create({
   root: {
+  },
+  avatarListItem: {
+    marginTop: 5,
+    marginBottom: 15,
   },
 })
