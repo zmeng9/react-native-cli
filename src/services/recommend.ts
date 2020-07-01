@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { ICommonParams } from './common'
-import { request } from '@/utils'
 
 
 export interface IGetLocation {
@@ -15,12 +13,4 @@ export const getLocation = (params: IGetLocation) => {
       ...params,
     },
   })
-}
-
-export const getRecommends = (params: ICommonParams) => {
-  return request.get(`/types/novels`, { params })
-}
-
-export const getNovelsByType = (params: ICommonParams) => {
-  return request.get(`/types/novels`, { params })
 }

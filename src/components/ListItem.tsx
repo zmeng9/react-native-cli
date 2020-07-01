@@ -71,7 +71,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
           : (
             <View style={styles.container}>
               <View style={[styles.leftContainer, leftStyle]}>
-                {leftIconName && <Icon name={leftIconName} size={24} style={{ paddingHorizontal: 5 }} />}
+                {!!leftIconName && <Icon name={leftIconName} size={24} style={{ paddingHorizontal: 5 }} />}
                 {!!leftText && (
                   <ColorfulText
                     style={leftTextStyle}
@@ -101,7 +101,7 @@ export const ListItem: React.SFC<IListItemProps> = observer(({
                     onPress={onPressRightText}
                   />
                 )}
-                {rightIconName && (
+                {!!rightIconName && (
                   typeof rightIconName === `string`
                     ? <Icon name={rightIconName} size={24} onPress={onPressRightIcon} />
                     : rightIconName.map((item, idx) => <Icon key={idx} name={item.name} size={24} onPress={item.onPress} />)

@@ -35,7 +35,4 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 20,
   },
-  novel: {
-    marginLeft: 15,
-  },
 })
